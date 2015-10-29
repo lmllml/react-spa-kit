@@ -11,9 +11,11 @@ config.set('path_project', path.resolve(__dirname, '../'));
 
 config.set('vendor_dependencies', [
     'react',
-    'react-redux',
+    'react-dom',
     'react-router',
-    'redux'
+    'react-redux',
+    'redux',
+    'redux-thunk'
 ]);
 
 
