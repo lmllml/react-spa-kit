@@ -1,9 +1,11 @@
 {
   "scripts": {
-    "dev": "NODE_ENV=development node bin/webpackDevServer"
+    "dev": "NODE_ENV=development node bin/webpackDevServer",
+    "build": "NODE_ENV=production webpack"
   },
   "dependencies": {
     "babel": "^5.8.29",
+    "history": "^1.13.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.1",
     "react-redux": "^4.0.0",

@@ -2,7 +2,7 @@ import React, {
     Component
 } from 'react';
 
-class Home extends Component {
+export default class Home extends Component {
     constructor (props) {
         super(props);
         this.state = {
@@ -20,11 +20,9 @@ class Home extends Component {
         return (
             <div>
                 <h1>欢迎来到美团商超</h1>
-                <input value={this.state.text} refs="input" onInput={this._onInput}/>
+                <input value={this.state.text} ref="input" onInput={this._onInput.bind(this)}/>
                 <div>{this.state.text}</div>
             </div>
         )
     }
 }
-
-export default Home;
