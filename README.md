@@ -20,3 +20,4 @@
 3.  加入fetch库
 4.  设置proxy 
 5.  加入hot replace和live reload
+6.  加入sourcemap，利于debug
