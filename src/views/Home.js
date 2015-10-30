@@ -12,7 +12,7 @@ export default class Home extends Component {
 
     _onInput () {
         this.setState({
-            text: this.refs.input.value
+            text: this.myTextInput.value
         })
     }
 
@@ -20,9 +20,9 @@ export default class Home extends Component {
         return (
             <div>
                 <h1>欢迎来到美团商超</h1>
-                <input value={this.state.text} ref="input" onInput={this._onInput.bind(this)}/>
+                <input value={this.state.text} ref={(ref) => this.myTextInput = ref} onInput={this._onInput.bind(this)}/>
                 <div>{this.state.text}</div>
             </div>
-        )
+        );
     }
 }

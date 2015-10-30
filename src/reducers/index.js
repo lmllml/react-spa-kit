@@ -10,8 +10,10 @@ var reducers = (() => {
     Object.keys(stateToReducerMap).forEach(function (key) {
         var reducer = stateToReducerMap[key];
         map[key] = function (state, action) {
-            var type = action.type || 'default';
-            var func = reducer[type];
+            var func = reducer[action.type];
+            if (!func) {
+                func = reducer['default'];
+            }
             return func.apply(null, arguments);
         }
     });
