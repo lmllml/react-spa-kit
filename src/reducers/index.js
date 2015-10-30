@@ -11,10 +11,7 @@ var reducers = (() => {
         var reducer = stateToReducerMap[key];
         map[key] = function (state, action) {
             var func = reducer[action.type];
-            if (!func) {
-                func = reducer['default'];
-            }
-            return func.apply(null, arguments);
+            return func && func.apply(null, arguments) || state;
         }
     });
     return map;
