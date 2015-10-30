@@ -11,6 +11,10 @@ import { Router, Route } from 'react-router';
 import routeConfig from './routes';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 
+
+import './styles/core.scss';
+
+
 const target = document.getElementById('root');
 const store = configureStore();
 
