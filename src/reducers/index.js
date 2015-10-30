@@ -1,21 +1,28 @@
 import { combineReducers } from 'redux';
-import editor from './editor';
+import * as editor from './editor';
 
 var stateToReducerMap = {
-    text: editor
+    text: editor,
 };
 
 var reducers = (() => {
     var map = {};
     Object.keys(stateToReducerMap).forEach(function (key) {
-        var reducer = stateToReducerMap[key];
+        var value = stateToReducerMap[key];
         map[key] = function (state, action) {
-            var func = reducer[action.type];
-            return func && func.apply(null, arguments) || state;
+            var func = value.actionToReducerMap[action.type];
+            if (func) {
+                return func.apply(null, arguments)
+            }
+
+            if (state === undefined) {
+                return value.initState;
+            } else {
+                return state;
+            }
         }
     });
     return map;
 })();
-
 
 export default combineReducers(reducers);

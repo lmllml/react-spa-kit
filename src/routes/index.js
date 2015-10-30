@@ -1,10 +1,20 @@
-const routeConfig = {
-	path: '/',
-    getComponent (location, callback) {
-        require.ensure([], function (require) {
-            callback(null, require('../views/Home.js'))
-        });
-    }
-};
+import React, {
+    Component
+} from 'react';
+import { Router, Route } from 'react-router';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 
-export default routeConfig;
+const history = createBrowserHistory();
+
+const RootRouter = (
+    <Router history={history}>
+        <Route path="/" getComponent={(location, cb) => {
+            require.ensure([],  require => {
+                cb(null, require('../layout/Home.js'));
+            });
+        }}>
+        </Route>
+    </Router>
+);
+
+export default RootRouter;
