@@ -1,10 +1,11 @@
 # DEMO 
 
-## debug模式
+## debug
 ```
 	npm install
 	npm run dev
 ```
+访问http://localhost:3000/
 
 ## build
 
@@ -15,9 +16,6 @@
 ```
 
 ## todoList
-1. 	编写connect
-2.  研究如何加入页面跳转效果
-3.  加入fetch库
-4.  设置proxy 
-5.  加入hot replace和live reload
-6.  加入sourcemap，利于debug
+1.  研究如何加入页面跳转效果
+2.  加入hot replace和live reload
+3.  优化bundle方案，对于util各页面使用率不高的公共模块进行bundle
