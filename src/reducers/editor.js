@@ -1,7 +1,7 @@
 import * as actions from '../actions';
 
-const editor = {
-    [actions.CHANGE_TEXT]: (state = '', action) => action.text || state
-};
+export const initState='';
 
-export default editor;
+export const actionToReducerMap = {
+    [actions.CHANGE_TEXT]: (state, action) => action.text || state
+};
