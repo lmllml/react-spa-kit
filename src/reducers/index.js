@@ -17,6 +17,5 @@ var reducers = (() => {
     return map;
 })();
 
-console.log(reducers);
 
 export default combineReducers(reducers);

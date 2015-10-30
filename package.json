@@ -5,6 +5,9 @@
   },
   "dependencies": {
     "babel": "^5.8.29",
+    "es6-promise": "^3.0.2",
+    "fetch-detector": "^1.0.0",
+    "fetch-polyfill": "^0.8.1",
     "history": "^1.13.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.1",
