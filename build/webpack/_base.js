@@ -24,8 +24,7 @@ const webpackConfig = {
             hash: true,
             filename: 'index.html',
             inject: 'body'
-        }),
-        new ExtractTextPlugin("[name].css")
+        })
     ],
     module: {
         loaders: [
@@ -35,17 +34,11 @@ const webpackConfig = {
                 loader: 'babel'
             },
             {
-                test: /\.scss$/,
-                loaders: [
-                    'style-loader',
-                    'css-loader?sourceMap',
-                    'autoprefixer?browsers=last 2 version',
-                    'sass-loader?sourceMap'
-                ]
+                test: /\.(png|jpg|jpeg|gif)$/,
+                loader: 'url-loader?limit=8192'
             }
         ]
     },
-    devtool: 'inline-source-map',
     sassLoader: {
         includePaths: paths.src('styles')
     }

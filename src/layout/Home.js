@@ -1,3 +1,4 @@
+import '../styles/layout/home.scss';
 import React, {
     Component
 } from 'react';
@@ -12,10 +13,12 @@ class Home extends Component {
 
     render () {
         return (
-            <div>
+            <div className="layout layout-home">
                 <h1>欢迎来到美团商超</h1>
                 <TextInput text={this.props.text} changeText={this.props.actions.changeText}/>  
                 <Link to="/about">去About页</Link>
+                <div><img src={require("../imgs/1.gif")}/></div>
+                <div className="test-bg"/> 
             </div>
         );
     }

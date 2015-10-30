@@ -1,6 +1,7 @@
 import path from 'path';
 const config = new Map();
 
+config.set('webpack_protocal', 'http');
 config.set('webpack_host', 'localhost');
 config.set('webpack_port', process.env.PORT || 3000);
 config.set('env', process.env.NODE_ENV || 'development');
