@@ -3,24 +3,14 @@ import React, {
 } from 'react';
 
 export default class TextInput extends Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            text: ''
-        };
+    _changeText () {
+        this.props.changeText(this._input.value);
     }
-
-    _onInput () {
-        this.setState({
-            text: this.myTextInput.value
-        })
-    }
-
     render () {
         return (
             <div>
-                <input value={this.state.text} ref={(ref) => this.myTextInput = ref} onInput={this._onInput.bind(this)}/>
-                <div>{this.state.text}</div>
+                <input value={this.props.text} ref={(c) => this._input = c } onInput={this._changeText.bind(this)}/>
+                <div>{this.props.text}</div>
             </div>
         );
     }
