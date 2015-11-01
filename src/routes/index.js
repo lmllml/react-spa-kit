@@ -12,9 +12,14 @@ const history = createBrowserHistory();
 const handleLayoutMoulde = function (callback, layoutMoulde) {
     var LayoutComponent = layoutMoulde.LayoutComponent;
 
-    var component = connect(layoutMoulde.mapStateToProps, layoutMoulde.mapDispatchToProps || function (dispatch) {
-        return {actions: bindActionCreators(actions, dispatch)};
-    })(LayoutComponent);
+    var component = connect(
+    	layoutMoulde.mapStateToProps || function () {
+    		return {};
+    	}, 
+    	layoutMoulde.mapDispatchToProps || function (dispatch) {
+        	return {actions: bindActionCreators(actions, dispatch)}
+        }
+    )(LayoutComponent);
     callback(null, component);
 
 };
@@ -33,6 +38,19 @@ const RootRouter = (
                 handleLayoutMoulde(cb, require('../layout/About.js'));
             });
         }}>
+        </Route>
+
+        <Route path="/list" getComponent={(location, cb) => {
+            require.ensure([],  require => {
+                handleLayoutMoulde(cb, require('../layout/List.js'));
+            });
+        }}>
+        	<Route path="/item/:id" getComponent={(location, cb) => {
+	            require.ensure([],  require => {
+	                handleLayoutMoulde(cb, require('../layout/Item.js'));
+	            });
+        	}}>
+        	</Route>
         </Route>
     </Router>
 );
