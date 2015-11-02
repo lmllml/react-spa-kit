@@ -9,7 +9,9 @@ class Item extends Component {
 
     render () {
         return (
-            <h1>Item{this.props.params.id}</h1>
+            <div>
+                <h1>Item{this.props.params.id}</h1>
+            </div>
         );
     }
 }

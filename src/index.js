@@ -1,7 +1,4 @@
-require('es6-promise').polyfill();
-import 'fetch-detector';
-import 'fetch-polyfill';
-
+import './polyfill.js';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
