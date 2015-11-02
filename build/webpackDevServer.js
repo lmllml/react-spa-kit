@@ -11,7 +11,8 @@ const server = new WebpackDevServer(
         contentBase: paths.project(config.get('dir_src')),
         stats: {
             colors: true
-        }
+        },
+        historyApiFallback: true
     }
 );
 export default server;
