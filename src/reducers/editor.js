@@ -1,4 +1,4 @@
-import * as actions from '../actions';
+import actions from '../actions';
 
 export const initState='';
 

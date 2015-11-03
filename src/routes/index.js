@@ -2,7 +2,7 @@ import React, {
     Component
 } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import actions from '../actions';
 import { bindActionCreators } from 'redux';
 import { Router, Route ,IndexRoute} from 'react-router';
 
