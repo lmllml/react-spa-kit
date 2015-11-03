@@ -5,7 +5,7 @@ import React,{
 import Loading from '../components/modules/Loading';
 
 
-class Layout extends Component {
+class CoreLayout extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -51,4 +51,4 @@ class Layout extends Component {
 }
 
 
-export default Layout;
+export default CoreLayout;

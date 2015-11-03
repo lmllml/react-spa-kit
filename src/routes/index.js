@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { bindActionCreators } from 'redux';
 import { Router, Route ,IndexRoute} from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
 
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 import CoreLayout from '../layout/CoreLayout';
+
 
 import {
     Grid,
@@ -17,66 +18,93 @@ import {
 
 const history = createBrowserHistory();
 
-const handleLayoutMoulde = function (callback, layoutMoulde) {
-    var LayoutComponent = layoutMoulde.LayoutComponent;
+class Routes extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: false
+        };
+        this.getComponents = {
+            init: (location, cb)=> this._setLoading(()=> {
+                require.ensure([], require=> {
+                    this._handleLayoutMoulde(cb, require('../layout/Home.js'));
+                })
+            }),
 
-    var component = connect(
-        layoutMoulde.mapStateToProps || function () {
-            return {};
-        },
-        layoutMoulde.mapDispatchToProps || function (dispatch) {
-            return {actions: bindActionCreators(actions, dispatch)}
-        }
-    )(LayoutComponent);
-    callback(null, component);
-};
+            about: {
+                init: (location, cb)=>this._setLoading(()=> {
+                    require.ensure([], require=> {
+                        this._handleLayoutMoulde(cb, require('../layout/About.js'));
+                    })
+                })
+            },
+            list: {
+                init: (location, cb)=>this._setLoading(()=> {
+                    require.ensure([], require=> {
+                        this._handleLayoutMoulde(cb, require('../layout/List.js'));
+                    })
+                }),
+                item: (location, cb)=>this._setLoading(()=> {
+                    require.ensure([], require=> {
+                        this._handleLayoutMoulde(cb, require('../layout/Item.js'));
+                    })
+                })
+            }
 
-
-const components = {
-    init: (location, cb)=> {
-        require.ensure([], require => {
-            handleLayoutMoulde(cb, require('../layout/Home.js'));
-        });
-    },
-
-
-    about: (location, cb)=> {
-        require.ensure([], require => {
-            handleLayoutMoulde(cb, require('../layout/About.js'));
-        });
-    },
-
-
-    list: {
-        init: (location, cb)=> {
-            require.ensure([], require => {
-                handleLayoutMoulde(cb, require('../layout/List.js'));
-            });
-        },
-        item: (location, cb) => {
-            require.ensure([], require => {
-                handleLayoutMoulde(cb, require('../layout/Item.js'));
-            });
-        }
+        };
     }
-};
+
+    _handleLayoutMoulde(callback, layoutMoulde) {
+        var LayoutComponent = layoutMoulde.LayoutComponent;
+        this.setState({
+            loading: false
+        });
+        var component = connect(
+            layoutMoulde.mapStateToProps || function () {
+                return {};
+            },
+            layoutMoulde.mapDispatchToProps || function (dispatch) {
+                return {actions: bindActionCreators(actions, dispatch)}
+            }
+        )(LayoutComponent);
+        callback(null, component);
+    }
 
 
-const RootRouter = (
-    <Router history={history} onUpdate={()=>setTimeout(() => window.scrollTo(0,0))}>
-        <Route path="/" component={CoreLayout} >
-            <IndexRoute getComponent={components.init} onEnter={()=>{
-                console.log(new Date().getTime());
-            }}/>
-            <Route path="/about" getComponent={components.about} onEnter={()=>{
-                console.log(new Date().getTime());
-            }}/>
+    _setLoading(cb) {
+        this.setState({
+            loading: true
+        });
+        cb();
+    }
 
-            <Route path="/list" getComponent={components.list.init}>
-                <Route path="/item/:id" getComponent={components.list.item}/>
-            </Route>
-        </Route>
-    </Router>
-);
 
-export default RootRouter;
+    _createElement(Component, props) {
+        return (
+            <Component {...props} pageLoading={this.state.loading}/>
+        )
+    }
+
+
+    render() {
+        return (
+            <div>
+                <Router history={history} createElement={this._createElement.bind(this)}>
+                    <Route path="/" component={CoreLayout}>
+                        <IndexRoute getComponents={this.getComponents.init}/>
+
+                        <Route path="about" getComponent={this.getComponents.about.init}/>
+
+                        <Route path="list" getComponent={this.getComponents.list.init}>
+                            <Route path="/item/:id" getComponent={this.getComponents.list.item}>
+                            </Route>
+                        </Route>
+                    </Route>
+                </Router>
+            </div>
+        )
+    }
+}
+
+
+export default Routes;
