@@ -9,32 +9,33 @@ class CoreLayout extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: false,
-            toState: ''
+            loading: props.pageLoading
         };
-        this.props.history.listenBefore(location => {
-            console.log(this.props.route);
-            this.setState({
-                loading: true
-            });
-            this.loadingStartTime = new Date().getTime();
-        });
     }
 
     componentWillReceiveProps(nextProps) {
-        let currentTime = new Date().getTime();
-        let timeLeft = 500 - (currentTime - this.loadingStartTime);
-        if (timeLeft) {
-            return setTimeout(()=> {
+        if (nextProps.pageLoading !== this.props.pageLoading) {
+            if (nextProps.pageLoading) {
+                this.setState({
+                    loading: true
+                });
+                return this.loadingStartTime = new Date().getTime();
+            }
+            else {
+                let currentTime = new Date().getTime();
+                let timeLeft = 500 - (currentTime - this.loadingStartTime);
+                if (timeLeft) {
+                    return setTimeout(()=> {
+                        this.setState({
+                            loading: false
+                        })
+                    }, timeLeft)
+                }
                 this.setState({
                     loading: false
-                })
-            }, timeLeft)
+                });
+            }
         }
-
-        this.setState({
-            loading: false
-        });
     }
 
 

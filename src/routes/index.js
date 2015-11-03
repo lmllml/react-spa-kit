@@ -79,9 +79,9 @@ class Routes extends Component {
     }
 
 
-    _createElement(Component, props) {
+    _createElement(RouteComponent, props) {
         return (
-            <Component {...props} pageLoading={this.state.loading}/>
+            <RouteComponent {...props} pageLoading={this.state.loading}/>
         )
     }
 
