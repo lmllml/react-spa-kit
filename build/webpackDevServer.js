@@ -12,7 +12,13 @@ const server = new WebpackDevServer(
         stats: {
             colors: true
         },
-        historyApiFallback: true
+        historyApiFallback: true,
+        proxy: {
+            '/api/*': {
+                target: 'http://localhost:8000',
+                secure: false
+            }
+        }
     }
 );
 export default server;

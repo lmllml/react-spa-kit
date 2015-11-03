@@ -10,7 +10,8 @@ const webpackConfig = {
         app: [
             paths.project(config.get('dir_src'))
         ],
-        vendor: config.get('vendor_dependencies')
+        vendor: config.get('vendor_dependencies'),
+        common: config.get('common_dependencies')
     },
     output: {
         filename: '[name].[hash].js',
