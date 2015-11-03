@@ -4,8 +4,16 @@ import React, {
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { bindActionCreators } from 'redux';
-import { Router, Route } from 'react-router';
+import { Router, Route ,IndexRoute} from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
+
+import CoreLayout from '../layout/CoreLayout';
+
+import {
+    Grid,
+    Col,
+    Container
+} from 'amazeui-react';
 
 const history = createBrowserHistory();
 
@@ -13,44 +21,60 @@ const handleLayoutMoulde = function (callback, layoutMoulde) {
     var LayoutComponent = layoutMoulde.LayoutComponent;
 
     var component = connect(
-    	layoutMoulde.mapStateToProps || function () {
-    		return {};
-    	}, 
-    	layoutMoulde.mapDispatchToProps || function (dispatch) {
-        	return {actions: bindActionCreators(actions, dispatch)}
+        layoutMoulde.mapStateToProps || function () {
+            return {};
+        },
+        layoutMoulde.mapDispatchToProps || function (dispatch) {
+            return {actions: bindActionCreators(actions, dispatch)}
         }
     )(LayoutComponent);
     callback(null, component);
-
 };
 
-const RootRouter = (
-    <Router history={history}>
-        <Route path="/" getComponent={(location, cb) => {
-            require.ensure([],  require => {
-                handleLayoutMoulde(cb, require('../layout/Home.js'));
-            });
-        }}>
-        </Route>
 
-        <Route path="/about" getComponent={(location, cb) => {
-            require.ensure([],  require => {
-                handleLayoutMoulde(cb, require('../layout/About.js'));
-            });
-        }}>
-        </Route>
+const components = {
+    init: (location, cb)=> {
+        require.ensure([], require => {
+            handleLayoutMoulde(cb, require('../layout/Home.js'));
+        });
+    },
 
-        <Route path="/list" getComponent={(location, cb) => {
-            require.ensure([],  require => {
+
+    about: (location, cb)=> {
+        require.ensure([], require => {
+            handleLayoutMoulde(cb, require('../layout/About.js'));
+        });
+    },
+
+
+    list: {
+        init: (location, cb)=> {
+            require.ensure([], require => {
                 handleLayoutMoulde(cb, require('../layout/List.js'));
             });
-        }}>
-        	<Route path="/item/:id" getComponent={(location, cb) => {
-	            require.ensure([],  require => {
-	                handleLayoutMoulde(cb, require('../layout/Item.js'));
-	            });
-        	}}>
-        	</Route>
+        },
+        item: (location, cb) => {
+            require.ensure([], require => {
+                handleLayoutMoulde(cb, require('../layout/Item.js'));
+            });
+        }
+    }
+};
+
+
+const RootRouter = (
+    <Router history={history} onUpdate={()=>setTimeout(() => window.scrollTo(0,0))}>
+        <Route path="/" component={CoreLayout} >
+            <IndexRoute getComponent={components.init} onEnter={()=>{
+                console.log(new Date().getTime());
+            }}/>
+            <Route path="/about" getComponent={components.about} onEnter={()=>{
+                console.log(new Date().getTime());
+            }}/>
+
+            <Route path="/list" getComponent={components.list.init}>
+                <Route path="/item/:id" getComponent={components.list.item}/>
+            </Route>
         </Route>
     </Router>
 );
