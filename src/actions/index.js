@@ -1,8 +1,5 @@
-export const CHANGE_TEXT = 'CHANGE_TEXT';
+import poi from './poi';
 
-export function changeText (text) {
-    return {
-        type: CHANGE_TEXT,
-        text
-    };
+export default {
+    ...poi
 }

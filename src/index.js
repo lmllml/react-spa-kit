@@ -14,7 +14,7 @@ const target = document.getElementById('root');
 const store = configureStore();
 
 ReactDOM.render((
-	<Provider store={store}>
-		{ RootRouter }
-	</Provider>
+    <Provider store={store}>
+        <RootRouter/>
+    </Provider>
 ), target);

@@ -9,6 +9,7 @@ import { Link } from 'react-router';
 class Home extends Component {
     constructor (props) {
         super(props);
+        console.log(process.env.NODE_ENV);
     }
 
     render () {
@@ -19,7 +20,17 @@ class Home extends Component {
                 <div><Link to="/about">去About页</Link></div>
                 <div><Link to="/list">去List页</Link></div>
                 <div><img src={require("../imgs/1.gif")}/></div>
-                <div className="test-bg"/> 
+                <div><img src={require("../imgs/1.gif")}/></div>
+                <div><img src={require("../imgs/1.gif")}/></div>
+                <div><img src={require("../imgs/1.gif")}/></div>
+                <div><Link to="/list">去List页</Link></div>
+                <div><img src={require("../imgs/1.gif")}/></div>
+                <div><img src={require("../imgs/1.gif")}/></div>
+                <div><img src={require("../imgs/1.gif")}/></div>
+                <div><img src={require("../imgs/1.gif")}/></div>
+                <div><Link to="/list">去List页</Link></div>
+
+                <div className="test-bg"/>
             </div>
         );
     }

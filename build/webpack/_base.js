@@ -25,6 +25,9 @@ const webpackConfig = {
             hash: true,
             filename: 'index.html',
             inject: 'body'
+        }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': `'${config.get('env')}'`
         })
     ],
     module: {

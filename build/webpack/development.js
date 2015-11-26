@@ -1,7 +1,7 @@
 import webpackConfig from './_base';
 import config from '../../config';
 
-webpackConfig.devtool = 'cheap-source-map';
+webpackConfig.devtool = 'eval-cheap-module-source-map';
 webpackConfig.output.publicPath = config.get('webpack_protocal') + "://" + config.get('webpack_host') + ":" + config.get('webpack_port') + "/";
 webpackConfig.module.loaders.push({
     test: /\.scss$/,
